@@ -1,0 +1,6 @@
+---
+- name: reload firewalld
+  command: "/usr/bin/firewall-cmd --reload"
+
+- name: enable and restart httpd
+  service: name=httpd enabled=yes state=restarted

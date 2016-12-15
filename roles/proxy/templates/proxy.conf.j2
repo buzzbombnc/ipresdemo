@@ -1,0 +1,10 @@
+<Proxy "balancer://{{ cluster_name }}">
+</Proxy>
+
+ProxyPass "/app" "balancer://{{ cluster_name }}"
+ProxyPassReverse "/app" "balancer://{{ cluster_name }}"
+
+<Location "/balancer-manager">
+    SetHandler balancer-manager
+    #Require ip 127.0.0.1
+</Location>

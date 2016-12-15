@@ -1,0 +1,18 @@
+---
+# TODO: There is an Ansible service that does this, but it's not quite ready for prime time.
+# This always runs.  Yuck.
+- name: update firewalld to allow http and https
+  command: "/usr/bin/firewall-cmd --add-service={{ item }} --permanent"
+  with_items:
+    - http
+    - https
+  notify:
+    - reload firewalld
+
+- name: set selinux flag to let httpd connect to workers
+  seboolean: name=httpd_can_network_connect persistent=yes state=yes
+  
+- name: add mod_proxy configuration
+  template: src=proxy.conf.j2 dest=/etc/httpd/conf.d/proxy.conf
+  notify:
+    - enable and restart httpd
