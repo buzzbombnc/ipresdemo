@@ -1,0 +1,34 @@
+---
+- name: clone the application
+  git: name={{ git_repo }} dest={{ app_dest }} force=yes version={{ app_version }}
+  become: gunicorn_user
+  register: gitstatus
+
+# TODO: This is a hack to work around issue #5470 in the ansible pip module.
+
+- name: create the new virtualenv for the application
+  command: "/usr/bin/virtualenv --system-site-packages {{ app_dest }}/env"
+  args:
+    creates: "{{ app_dest }}/env"
+  become: gunicorn_user
+  when: gitstatus|changed
+  
+- name: update the requirements for the application
+  pip: executable="{{ app_dest }}/env/bin/pip" requirements="{{ app_dest }}/requirements.txt"
+  become: gunicorn_user
+  when: gitstatus|changed
+  
+- name: update gunicorn systemd config files
+  template: src={{ item.src }} dest="/etc/systemd/system/{{ item.dest }}" owner=root group=root mode=0755
+  with_items:
+    - { src: 'gunicorn.socket.j2', dest: 'gunicorn.socket' }
+    - { src: 'gunicorn.service.j2', dest: 'gunicorn.service' }
+  notify:
+    - enable gunicorn.socket
+
+- name: test the new application
+  command: "{{ app_dest }}/env/bin/python {{ app_dest }}/app_tests.py"
+  become: gunicorn_user
+  when: gitstatus|changed
+  notify:
+    - restart gunicorn.service

@@ -1,0 +1,12 @@
+---
+# Git repository where the application lives.
+git_repo: https://github.com/buzzbombnc/basicflaskapp.git
+# User and group to run the gunicorn service as.
+gunicorn_user: user
+gunicorn_group: user
+# Address to bind gunicorn to.
+gunicorn_address: "0.0.0.0:5000"
+# Application dest dir.  Requires that virtulenv lives in '<dir>/env'.
+app_dest: /home/user/basicflaskapp
+# Application version.  Defaults to HEAD.
+app_version: HEAD

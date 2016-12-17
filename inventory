@@ -1,4 +1,5 @@
 [workers]
+bworker1.local
 
 [proxy]
 bproxy.local

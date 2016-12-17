@@ -1,0 +1,10 @@
+[Unit]
+Description=gunicorn socket
+
+[Socket]
+ListenStream={{ gunicorn_address }}
+BindIPv6Only=both
+
+[Install]
+
+WantedBy=sockets.target

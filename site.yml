@@ -1,2 +1,3 @@
 ---
 - include: proxy.yml
+- include: worker.yml

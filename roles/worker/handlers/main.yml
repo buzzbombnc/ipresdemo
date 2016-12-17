@@ -1,0 +1,6 @@
+---
+- name: enable gunicorn.socket
+  systemd: name=gunicorn.socket daemon_reload=yes enabled=yes state=started
+  
+- name: restart gunicorn.service
+  systemd: name=gunicorn.service daemon_reload=yes enabled=yes state=restarted
