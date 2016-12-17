@@ -1,10 +1,6 @@
 ---
-# TODO: There is an Ansible service that does this, but it's not quite ready for prime time.
-# This always runs.  Yuck.
 - name: update firewalld to allow application port
-  command: "/usr/bin/firewall-cmd --add-port={{ app_port }}/tcp --permanent"
-  notify:
-    - reload firewalld
+  firewalld: immediate=yes permanent=yes port="{{ app_port }}/tcp" state=enabled
 
 - name: clone the application
   git: name={{ git_repo }} dest={{ app_dest }} force=yes version={{ app_version }}

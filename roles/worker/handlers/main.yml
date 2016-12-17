@@ -4,6 +4,3 @@
   
 - name: restart gunicorn.service
   systemd: name=gunicorn.service daemon_reload=yes enabled=yes state=restarted
-
-- name: reload firewalld
-  command: "/usr/bin/firewall-cmd --reload"
