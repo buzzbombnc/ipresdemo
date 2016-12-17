@@ -5,7 +5,7 @@ git_repo: https://github.com/buzzbombnc/basicflaskapp.git
 gunicorn_user: user
 gunicorn_group: user
 # Address to bind gunicorn to.
-gunicorn_address: "0.0.0.0:5000"
+gunicorn_address: "{{ app_address }}:{{ app_port }}"
 # Application dest dir.  Requires that virtulenv lives in '<dir>/env'.
 app_dest: /home/user/basicflaskapp
 # Application version.  Defaults to HEAD.
