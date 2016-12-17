@@ -1,0 +1,6 @@
+---
+# Required packages.
+required_packages:
+  - git
+  - python-virtualenv
+  - python-setuptools
