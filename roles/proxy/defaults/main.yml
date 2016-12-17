@@ -1,1 +1,5 @@
 ---
+# The packages required for proxy servers.
+proxy_packages:
+  - httpd
+  - libsemanage-python
