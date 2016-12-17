@@ -1,4 +1,7 @@
 <Proxy "balancer://{{ cluster_name }}">
+{% for w in groups['workers'] %}
+    BalancerMember "http://{{ hostvars[w]['ansible_default_ipv4']['address'] }}:{{ hostvars[w]['app_port'] }}"
+{% endfor %}
 </Proxy>
 
 ProxyPass "/app" "balancer://{{ cluster_name }}"

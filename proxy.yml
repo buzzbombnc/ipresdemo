@@ -1,5 +1,8 @@
 ---
+# Gather facts from workers.
+- hosts: workers
+  tasks: []
+
 - hosts: proxy
   roles:
     - proxy
-
