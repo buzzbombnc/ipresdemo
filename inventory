@@ -1,5 +1,6 @@
 [workers]
-bworker1.local
+demoworker1.local
+demoworker2.local
 
 [proxy]
-bproxy.local
+demoproxy.local
